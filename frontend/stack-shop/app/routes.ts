@@ -16,6 +16,10 @@ export default [
   // Finance
   route("finance", "routes/finance/dashboard/layout.tsx", [
     index("routes/finance/dashboard/overview.tsx"),
+    route("expenses", "routes/finance/dashboard/expenses.tsx"),
+    route("ledger", "routes/finance/dashboard/ledger.tsx"),
+    route("taxes", "routes/finance/dashboard/taxes.tsx"),
+    route("reports", "routes/finance/dashboard/reports.tsx"),
   ]),
   route("finance/login", "routes/finance/auth/login.tsx"),
   
