@@ -34,8 +34,14 @@ export default [
   route("pos/login", "routes/pos/auth/login.tsx"),
   
   // Management
-  route("management", "routes/management/dashboard.tsx"),
-  route("management/login", "routes/management/login.tsx"),
+  route("management", "routes/management/dashboard/layout.tsx", [
+    index("routes/management/dashboard/overview.tsx"),
+    route("planning", "routes/management/dashboard/planning.tsx"),
+    route("performance", "routes/management/dashboard/performance.tsx"),
+    route("resources", "routes/management/dashboard/resources.tsx"),
+    route("reports", "routes/management/dashboard/reports.tsx"),
+  ]),
+  route("management/login", "routes/management/auth/login.tsx"),
   
   // Stock Manager
   route("stock-manager", "routes/stock-manager/dashboard/layout.tsx", [
