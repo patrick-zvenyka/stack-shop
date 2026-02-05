@@ -38,6 +38,12 @@ export default [
   route("management/login", "routes/management/login.tsx"),
   
   // Stock Manager
-  route("stock-manager", "routes/stock-manager/dashboard.tsx"),
-  route("stock-manager/login", "routes/stock-manager/login.tsx"),
+  route("stock-manager", "routes/stock-manager/dashboard/layout.tsx", [
+    index("routes/stock-manager/dashboard/overview.tsx"),
+    route("inventory", "routes/stock-manager/dashboard/inventory.tsx"),
+    route("shipments", "routes/stock-manager/dashboard/shipments.tsx"),
+    route("suppliers", "routes/stock-manager/dashboard/suppliers.tsx"),
+    route("audits", "routes/stock-manager/dashboard/audits.tsx"),
+  ]),
+  route("stock-manager/login", "routes/stock-manager/auth/login.tsx"),
 ] satisfies RouteConfig;
