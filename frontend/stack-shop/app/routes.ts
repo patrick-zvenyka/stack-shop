@@ -14,8 +14,10 @@ export default [
   route("administrator/login", "routes/administrator/auth/login.tsx"),
   
   // Finance
-  route("finance", "routes/finance/dashboard.tsx"),
-  route("finance/login", "routes/finance/login.tsx"),
+  route("finance", "routes/finance/dashboard/layout.tsx", [
+    index("routes/finance/dashboard/overview.tsx"),
+  ]),
+  route("finance/login", "routes/finance/auth/login.tsx"),
   
   // POS
   route("pos", "routes/pos/dashboard.tsx"),

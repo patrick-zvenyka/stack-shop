@@ -9,38 +9,36 @@ export const meta: MetaFunction = () => {
 
 export default function Finance() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
-      <div className="max-w-7xl mx-auto">
-        <header className="mb-8 flex justify-between items-start">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Finance Dashboard</h1>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">Financial tracking and reporting</p>
-          </div>
-          <Link 
-            to="/finance/login"
-            className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
-          >
-            Sign Out
-          </Link>
-        </header>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <DashboardCard
-            title="Revenue Overview"
-            description="Track sales revenue, profits, and financial trends."
-            icon={<RevenueIcon />}
-          />
-          <DashboardCard
-            title="Expenses"
-            description="Manage operational costs and inventory expenditures."
-            icon={<ExpenseIcon />}
-          />
-          <DashboardCard
-            title="Financial Reports"
-            description="Generate balance sheets and income statements."
-            icon={<ReportIcon />}
-          />
+    <div className="max-w-7xl mx-auto">
+      <header className="mb-8 flex justify-between items-start">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Finance Dashboard</h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">Financial tracking and reporting</p>
         </div>
+        <Link 
+          to="/finance/login"
+          className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
+        >
+          Sign Out
+        </Link>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <DashboardCard
+          title="Revenue Overview"
+          description="Track sales revenue, profits, and financial trends."
+          icon={<RevenueIcon />}
+        />
+        <DashboardCard
+          title="Expenses"
+          description="Manage operational costs and inventory expenditures."
+          icon={<ExpenseIcon />}
+        />
+        <DashboardCard
+          title="Financial Reports"
+          description="Generate balance sheets and income statements."
+          icon={<ReportIcon />}
+        />
       </div>
     </div>
   );
