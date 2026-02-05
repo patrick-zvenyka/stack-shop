@@ -4,7 +4,13 @@ export default [
   index("routes/home.tsx"),
   
   // Administrator
-  route("administrator", "routes/administrator/dashboard.tsx"),
+  route("administrator", "routes/administrator/layout.tsx", [
+    index("routes/administrator/overview.tsx"),
+    route("users", "routes/administrator/users.tsx"),
+    route("security", "routes/administrator/security.tsx"),
+    route("config", "routes/administrator/config.tsx"),
+    route("infrastructure", "routes/administrator/infrastructure.tsx"),
+  ]),
   route("administrator/login", "routes/administrator/login.tsx"),
   
   // Finance

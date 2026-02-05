@@ -1,6 +1,6 @@
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
-export function AdminSidebar({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (tab: string) => void }) {
+export function AdminSidebar() {
   return (
     <aside className="w-72 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col hidden lg:flex h-screen sticky top-0">
       <div className="p-8 border-b border-gray-100 dark:border-gray-800">
@@ -13,11 +13,11 @@ export function AdminSidebar({ activeTab, setActiveTab }: { activeTab: string; s
       </div>
       
       <nav className="flex-1 p-6 space-y-1">
-        <SidebarLink active={activeTab === "overview"} onClick={() => setActiveTab("overview")} icon={<OverviewIcon />} label="System Overview" />
-        <SidebarLink active={activeTab === "users"} onClick={() => setActiveTab("users")} icon={<UsersIcon />} label="User Management" />
-        <SidebarLink active={activeTab === "security"} onClick={() => setActiveTab("security")} icon={<SecurityIcon />} label="Security & Audit" />
-        <SidebarLink active={activeTab === "config"} onClick={() => setActiveTab("config")} icon={<ConfigIcon />} label="System Config" />
-        <SidebarLink active={activeTab === "infrastructure"} onClick={() => setActiveTab("infrastructure")} icon={<InfrastrcutureIcon />} label="Infrastructure" />
+        <SidebarLink to="/administrator" icon={<OverviewIcon />} label="System Overview" end />
+        <SidebarLink to="/administrator/users" icon={<UsersIcon />} label="User Management" />
+        <SidebarLink to="/administrator/security" icon={<SecurityIcon />} label="Security & Audit" />
+        <SidebarLink to="/administrator/config" icon={<ConfigIcon />} label="System Config" />
+        <SidebarLink to="/administrator/infrastructure" icon={<InfrastrcutureIcon />} label="Infrastructure" />
       </nav>
 
       <div className="p-6 border-t border-gray-100 dark:border-gray-800">
@@ -33,21 +33,22 @@ export function AdminSidebar({ activeTab, setActiveTab }: { activeTab: string; s
   );
 }
 
-function SidebarLink({ active, icon, label, onClick }: { active: boolean; icon: React.ReactNode; label: string; onClick: () => void }) {
+function SidebarLink({ to, icon, label, end }: { to: string; icon: React.ReactNode; label: string; end?: boolean }) {
   return (
-    <button
-      onClick={onClick}
-      className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl font-bold text-sm transition-all duration-300 ${
-        active 
+    <NavLink
+      to={to}
+      end={end}
+      className={({ isActive }) => `w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl font-bold text-sm transition-all duration-300 ${
+        isActive 
           ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25 translate-x-1" 
           : "text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
       }`}
     >
-      <div className={`transition-transform duration-300 ${active ? "scale-110" : "group-hover:scale-110"}`}>
+      <div className="transition-transform duration-300">
         {icon}
       </div>
       {label}
-    </button>
+    </NavLink>
   );
 }
 
