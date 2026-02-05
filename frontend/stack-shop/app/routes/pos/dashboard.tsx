@@ -2,7 +2,7 @@ import { type MetaFunction, Link } from "react-router";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Point of Sale | Stack Shop" },
+    { title: "Point of Sale | StackShop" },
     { name: "description", content: "Point of Sale system view" },
   ];
 };

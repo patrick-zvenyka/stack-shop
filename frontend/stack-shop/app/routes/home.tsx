@@ -3,8 +3,8 @@ import { Welcome } from "../welcome/welcome";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "StackShop | Retail Management OS" },
+    { name: "description", content: "The all-in-one operating system for your retail business." },
   ];
 }
 

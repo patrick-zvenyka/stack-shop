@@ -1,155 +1,242 @@
 import { Link } from "react-router";
-import logoDark from "./logo-dark.svg";
-import logoLight from "./logo-light.svg";
+import { useState, useEffect } from "react";
 
 export function Welcome() {
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  const phrases = ["Powers Performance.", "Simplifies Retail.", "Empowers Growth.", "Mastering Commerce."];
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      handleTyping();
+    }, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, typingSpeed]);
+
+  const handleTyping = () => {
+    const i = loopNum % phrases.length;
+    const fullText = phrases[i];
+
+    if (isDeleting) {
+      setDisplayText(fullText.substring(0, displayText.length - 1));
+      setTypingSpeed(50);
+    } else {
+      setDisplayText(fullText.substring(0, displayText.length + 1));
+      setTypingSpeed(150);
+    }
+
+    if (!isDeleting && displayText === fullText) {
+      setTimeout(() => setIsDeleting(true), 2000);
+    } else if (isDeleting && displayText === "") {
+      setIsDeleting(false);
+      setLoopNum(loopNum + 1);
+      setTypingSpeed(500);
+    }
+  };
+
   return (
-    <main className="flex items-center justify-center pt-16 pb-4">
-      <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
-        <header className="flex flex-col items-center gap-9">
-          <div className="w-[500px] max-w-[100vw] p-4">
-            <img
-              src={logoLight}
-              alt="React Router"
-              className="block w-full dark:hidden"
+    <div className="min-h-screen bg-[#fdfcf0] dark:bg-[#0a0a0a] text-gray-900 dark:text-gray-100 selection:bg-blue-100 dark:selection:bg-blue-900 transition-colors duration-500">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 bg-[#fdfcf0]/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md border-b border-gray-100/50 dark:border-gray-800/50">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-2 group cursor-pointer">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:rotate-12 transition-transform duration-300">
+              <ShopIcon className="text-white w-6 h-6" />
+            </div>
+            <span className="text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 group-hover:tracking-widest transition-all duration-500">
+              STACK<span className="text-blue-600">SHOP</span>
+            </span>
+          </div>
+          <div className="hidden md:flex items-center gap-8">
+            <a href="#features" className="text-sm font-bold hover:text-blue-600 transition-colors hover:translate-y-[-2px] inline-block duration-200">Features</a>
+            <a href="#portals" className="text-sm font-bold hover:text-blue-600 transition-colors hover:translate-y-[-2px] inline-block duration-200">Portals</a>
+            <button className="bg-gray-900 dark:bg-white dark:text-gray-900 text-white px-6 py-2.5 rounded-full text-sm font-black hover:bg-blue-600 dark:hover:bg-blue-400 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 active:scale-95">
+              Contact Support
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-40 pb-20 px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-800 mb-8 hover:scale-105 transition-transform duration-300 cursor-default">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            <span className="text-sm font-black text-blue-700 dark:text-blue-400 tracking-wide uppercase">Core Intelligence v2.0</span>
+          </div>
+          <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 leading-[1.1] min-h-[3.3em] md:min-h-[2.2em]">
+            Management that <br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 border-r-4 border-blue-600 pr-2">
+              {displayText}
+            </span>
+          </h1>
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-500 dark:text-gray-400 mb-12 leading-relaxed animate-fade-in">
+            The all-in-one operating system for your retail business. From real-time inventory to point-of-sale, managed with enterprise-grade precision.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a href="#portals" className="px-8 py-4 bg-blue-600 text-white font-black rounded-2xl shadow-xl shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/40 hover:-translate-y-1.5 transition-all duration-300 active:scale-95 leading-none flex items-center">
+              Access System Portals
+            </a>
+            <button className="px-8 py-4 bg-white/50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 font-black rounded-2xl hover:bg-white dark:hover:bg-gray-800 hover:shadow-lg transition-all duration-300 active:scale-95 leading-none flex items-center">
+              Watch Demo
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Grid */}
+      <section id="features" className="py-20 px-6 border-y border-gray-100/50 dark:border-gray-900/50 bg-[#f8f7eb]/50 dark:bg-gray-900/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <FeatureCard 
+              title="Predictive Inventory"
+              description="Never run out of stock with our AI-driven demand forecasting and supplier integration."
+              icon={<InventoryIcon className="w-8 h-8" />}
             />
-            <img
-              src={logoDark}
-              alt="React Router"
-              className="hidden w-full dark:block"
+            <FeatureCard 
+              title="Universal POS"
+              description="Fast, reliable checkout across all platforms with integrated payments and loyalty."
+              icon={<POSIcon className="w-8 h-8" />}
+            />
+            <FeatureCard 
+              title="Real-time Analytics"
+              description="Instant insights into sales patterns, profit margins, and employee performance."
+              icon={<AnalyticsIcon className="w-8 h-8" />}
             />
           </div>
-        </header>
-
-        <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-          <section className="space-y-6">
-             <div className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4 bg-white dark:bg-gray-800 shadow-sm">
-                <p className="leading-6 text-gray-700 dark:text-gray-200 font-semibold border-b pb-2 border-gray-100 dark:border-gray-700">
-                  System Views
-                </p>
-                <div className="grid grid-cols-1 gap-2">
-                  {systemViews.map(({ to, text, description, icon }) => (
-                    <Link
-                      key={to}
-                      className="group flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-                      to={to}
-                    >
-                      <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
-                        {icon}
-                      </div>
-                      <div>
-                        <div className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                          {text}
-                        </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
-                          {description}
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-             </div>
-          </section>
-
-          <section className="space-y-6">
-            <div className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4 bg-white dark:bg-gray-800 shadow-sm">
-              <p className="leading-6 text-gray-700 dark:text-gray-200 font-semibold border-b pb-2 border-gray-100 dark:border-gray-700 text-center">
-                Resources
-              </p>
-              <ul>
-                {resources.map(({ href, text, icon }) => (
-                  <li key={href}>
-                    <a
-                      className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                      href={href}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {icon}
-                      {text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
         </div>
+      </section>
+
+      {/* Portals Section */}
+      <section id="portals" className="py-24 px-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 -z-10 w-[500px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-0 left-0 -z-10 w-[500px] h-[500px] bg-indigo-500/5 blur-[120px] rounded-full"></div>
+        
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <h2 className="text-4xl font-black tracking-tight mb-4">Secure Access Portals</h2>
+            <p className="text-gray-500 dark:text-gray-400">Select your role to access your personalized workspace.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {systemViews.map((view) => (
+              <Link
+                key={view.to}
+                to={view.to}
+                className="group relative bg-white/80 dark:bg-gray-900 p-8 rounded-[2rem] border border-gray-100/50 dark:border-gray-800 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/15 hover:-translate-y-3 transition-all duration-500 active:scale-[0.98]"
+              >
+                <div className={`w-14 h-14 rounded-2xl ${view.color} flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:rotate-12 transition-all duration-500`}>
+                  {view.icon}
+                </div>
+                <h3 className="text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors">{view.text}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-6 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors">
+                  {view.description}
+                </p>
+                <div className="flex items-center gap-2 text-sm font-black text-blue-600 group-hover:gap-4 transition-all uppercase tracking-widest">
+                  Login <ArrowIcon className="w-4 h-4" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 border-t border-gray-100/50 dark:border-gray-800 text-center bg-[#fdfcf0] dark:bg-black/20 backdrop-blur-sm">
+        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+          &copy; 2026 StackShop Enterprise Solutions. All rights reserved.
+        </p>
+      </footer>
+    </div>
+  );
+}
+
+function FeatureCard({ title, description, icon }: { title: string; description: string; icon: React.ReactNode }) {
+  return (
+    <div className="space-y-4 group p-6 rounded-3xl hover:bg-white/60 dark:hover:bg-gray-800/40 transition-all duration-300 hover:shadow-lg hover:shadow-black/5">
+      <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center shadow-sm border border-gray-100 dark:border-gray-800 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+        {icon}
       </div>
-    </main>
+      <h4 className="text-xl font-black group-hover:text-blue-600 transition-colors">{title}</h4>
+      <p className="text-gray-500 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors">{description}</p>
+    </div>
   );
 }
 
 const systemViews = [
   {
     to: "/administrator/login",
-    text: "Administrator",
-    description: "System settings and users",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+    text: "Admin",
+    description: "System backbone and security controls.",
+    color: "bg-blue-50 dark:bg-blue-900/30 text-blue-600",
+    icon: <AdminIcon />
   },
   {
     to: "/finance/login",
     text: "Finance",
-    description: "Revenue and expenses",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    description: "Financial audits and revenue streams.",
+    color: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600",
+    icon: <FinanceIcon />
   },
   {
     to: "/pos/login",
-    text: "Point of Sale",
-    description: "Sales and checkout",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    text: "POS",
+    description: "Fast-lane sales and digital payments.",
+    color: "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600",
+    icon: <POSIcon />
   },
   {
     to: "/management/login",
     text: "Management",
-    description: "Staff and operations",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    description: "Staff sync and operational metrics.",
+    color: "bg-purple-50 dark:bg-purple-900/30 text-purple-600",
+    icon: <ManagementIcon />
   },
   {
     to: "/stock-manager/login",
-    text: "Stock Manager",
-    description: "Inventory and suppliers",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+    text: "Inventory",
+    description: "Stock levels and supplier chains.",
+    color: "bg-amber-50 dark:bg-amber-900/30 text-amber-600",
+    icon: <InventoryIcon />
   },
 ];
 
-const resources = [
-  {
-    href: "https://reactrouter.com/docs",
-    text: "React Router Docs",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M9.99981 10.0751V9.99992M17.4688 17.4688C15.889 19.0485 11.2645 16.9853 7.13958 12.8604C3.01467 8.73546 0.951405 4.11091 2.53116 2.53116C4.11091 0.951405 8.73546 3.01467 12.8604 7.13958C16.9853 11.2645 19.0485 15.889 17.4688 17.4688ZM2.53132 17.4688C0.951566 15.8891 3.01483 11.2645 7.13974 7.13963C11.2647 3.01471 15.8892 0.951453 17.469 2.53121C19.0487 4.11096 16.9854 8.73551 12.8605 12.8604C8.73562 16.9853 4.11107 19.0486 2.53132 17.4688Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: "https://rmx.as/discord",
-    text: "Join Discord",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 24 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M15.0686 1.25995L14.5477 1.17423L14.2913 1.63578C14.1754 1.84439 14.0545 2.08275 13.9422 2.31963C12.6461 2.16488 11.3406 2.16505 10.0445 2.32014C9.92822 2.08178 9.80478 1.84975 9.67412 1.62413L9.41449 1.17584L8.90333 1.25995C7.33547 1.51794 5.80717 1.99419 4.37748 2.66939L4.19 2.75793L4.07461 2.93019C1.23864 7.16437 0.46302 11.3053 0.838165 15.3924L0.868838 15.7266L1.13844 15.9264C2.81818 17.1714 4.68053 18.1233 6.68582 18.719L7.18892 18.8684L7.50166 18.4469C7.96179 17.8268 8.36504 17.1824 8.709 16.4944L8.71099 16.4904C10.8645 17.0471 13.128 17.0485 15.2821 16.4947C15.6261 17.1826 16.0293 17.8269 16.4892 18.4469L16.805 18.8725L17.3116 18.717C19.3056 18.105 21.1876 17.1751 22.8559 15.9238L23.1224 15.724L23.1528 15.3923C23.5873 10.6524 22.3579 6.53306 19.8947 2.90714L19.7759 2.73227L19.5833 2.64518C18.1437 1.99439 16.6386 1.51826 15.0686 1.25995ZM16.6074 10.7755L16.6074 10.7756C16.5934 11.6409 16.0212 12.1444 15.4783 12.1444C14.9297 12.1444 14.3493 11.6173 14.3493 10.7877C14.3493 9.94885 14.9378 9.41192 15.4783 9.41192C16.0471 9.41192 16.6209 9.93851 16.6074 10.7755ZM8.49373 12.1444C7.94513 12.1444 7.36471 11.6173 7.36471 10.7877C7.36471 9.94885 7.95323 9.41192 8.49373 9.41192C9.06038 9.41192 9.63892 9.93712 9.6417 10.7815C9.62517 11.6239 9.05462 12.1444 8.49373 12.1444Z"
-          strokeWidth="1.5"
-        />
-      </svg>
-    ),
-  },
-];
+// Reusable SVG Icons
+function ShopIcon({ className }: { className?: string }) {
+  return <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>;
+}
+
+function AdminIcon() {
+  return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>;
+}
+
+function FinanceIcon() {
+  return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>;
+}
+
+function POSIcon({ className }: { className?: string }) {
+  return <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>;
+}
+
+function ManagementIcon() {
+  return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+}
+
+function InventoryIcon({ className }: { className?: string }) {
+  return <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M2 7v13a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7"/><path d="M2 7h20"/><path d="M10 12h4"/></svg>;
+}
+
+function AnalyticsIcon({ className }: { className?: string }) {
+  return <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>;
+}
+
+function ArrowIcon({ className }: { className?: string }) {
+  return <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>;
+}

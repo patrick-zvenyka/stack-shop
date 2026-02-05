@@ -81,7 +81,7 @@ export function LoginCard({ role, logo, accentColor, redirectPath }: LoginCardPr
           </div>
         </div>
         <p className="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm">
-          &copy; 2026 Stack Shop Enterprise Solutions
+          &copy; 2026 StackShop Enterprise Solutions
         </p>
       </div>
     </div>
