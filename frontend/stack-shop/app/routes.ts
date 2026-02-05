@@ -1,3 +1,25 @@
-import { type RouteConfig, index } from "@react-router/dev/routes";
+import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
-export default [index("routes/home.tsx")] satisfies RouteConfig;
+export default [
+  index("routes/home.tsx"),
+  
+  // Administrator
+  route("administrator", "routes/administrator/dashboard.tsx"),
+  route("administrator/login", "routes/administrator/login.tsx"),
+  
+  // Finance
+  route("finance", "routes/finance/dashboard.tsx"),
+  route("finance/login", "routes/finance/login.tsx"),
+  
+  // POS
+  route("pos", "routes/pos/dashboard.tsx"),
+  route("pos/login", "routes/pos/login.tsx"),
+  
+  // Management
+  route("management", "routes/management/dashboard.tsx"),
+  route("management/login", "routes/management/login.tsx"),
+  
+  // Stock Manager
+  route("stock-manager", "routes/stock-manager/dashboard.tsx"),
+  route("stock-manager/login", "routes/stock-manager/login.tsx"),
+] satisfies RouteConfig;

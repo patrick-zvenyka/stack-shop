@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import logoDark from "./logo-dark.svg";
 import logoLight from "./logo-light.svg";
 
@@ -19,32 +20,97 @@ export function Welcome() {
             />
           </div>
         </header>
-        <div className="max-w-[300px] w-full space-y-6 px-4">
-          <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
-            <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
-              What&apos;s next?
-            </p>
-            <ul>
-              {resources.map(({ href, text, icon }) => (
-                <li key={href}>
-                  <a
-                    className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {icon}
-                    {text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+
+        <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
+          <section className="space-y-6">
+             <div className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4 bg-white dark:bg-gray-800 shadow-sm">
+                <p className="leading-6 text-gray-700 dark:text-gray-200 font-semibold border-b pb-2 border-gray-100 dark:border-gray-700">
+                  System Views
+                </p>
+                <div className="grid grid-cols-1 gap-2">
+                  {systemViews.map(({ to, text, description, icon }) => (
+                    <Link
+                      key={to}
+                      className="group flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                      to={to}
+                    >
+                      <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+                        {icon}
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                          {text}
+                        </div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          {description}
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+             </div>
+          </section>
+
+          <section className="space-y-6">
+            <div className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4 bg-white dark:bg-gray-800 shadow-sm">
+              <p className="leading-6 text-gray-700 dark:text-gray-200 font-semibold border-b pb-2 border-gray-100 dark:border-gray-700 text-center">
+                Resources
+              </p>
+              <ul>
+                {resources.map(({ href, text, icon }) => (
+                  <li key={href}>
+                    <a
+                      className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {icon}
+                      {text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
         </div>
       </div>
     </main>
   );
 }
+
+const systemViews = [
+  {
+    to: "/administrator/login",
+    text: "Administrator",
+    description: "System settings and users",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+  },
+  {
+    to: "/finance/login",
+    text: "Finance",
+    description: "Revenue and expenses",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+  },
+  {
+    to: "/pos/login",
+    text: "Point of Sale",
+    description: "Sales and checkout",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+  },
+  {
+    to: "/management/login",
+    text: "Management",
+    description: "Staff and operations",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+  },
+  {
+    to: "/stock-manager/login",
+    text: "Stock Manager",
+    description: "Inventory and suppliers",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+  },
+];
 
 const resources = [
   {
