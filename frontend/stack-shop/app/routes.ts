@@ -24,8 +24,14 @@ export default [
   route("finance/login", "routes/finance/auth/login.tsx"),
   
   // POS
-  route("pos", "routes/pos/dashboard.tsx"),
-  route("pos/login", "routes/pos/login.tsx"),
+  route("pos", "routes/pos/dashboard/layout.tsx", [
+    index("routes/pos/dashboard/overview.tsx"),
+    route("inventory", "routes/pos/dashboard/inventory.tsx"),
+    route("orders", "routes/pos/dashboard/orders.tsx"),
+    route("customers", "routes/pos/dashboard/customers.tsx"),
+    route("returns", "routes/pos/dashboard/returns.tsx"),
+  ]),
+  route("pos/login", "routes/pos/auth/login.tsx"),
   
   // Management
   route("management", "routes/management/dashboard.tsx"),
