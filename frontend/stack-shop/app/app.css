@@ -7,6 +7,10 @@
 
 @variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   @apply transition-colors duration-500 bg-[#fdfcf0] dark:bg-[#0a0a0a] text-gray-900 dark:text-gray-100;
