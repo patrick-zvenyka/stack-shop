@@ -152,12 +152,6 @@ export function Welcome() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-gray-100/50 dark:border-gray-800 text-center bg-[#fdfcf0] dark:bg-black/20 backdrop-blur-sm">
-        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-          &copy; 2026 StackShop Enterprise Solutions. All rights reserved.
-        </p>
-      </footer>
     </div>
   );
 }
