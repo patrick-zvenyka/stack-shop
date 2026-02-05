@@ -18,7 +18,7 @@ export default function Administrator() {
       <AdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1">
         <AdminTopbar 
           title="Administrator Portal" 
           nodeID="Root.Node_892" 
