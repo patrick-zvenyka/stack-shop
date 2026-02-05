@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useState, useEffect } from "react";
+import { ThemeToggle } from "../components/ThemeProvider";
 
 export function Welcome() {
   const [displayText, setDisplayText] = useState("");
@@ -39,7 +40,7 @@ export function Welcome() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fdfcf0] dark:bg-[#0a0a0a] text-gray-900 dark:text-gray-100 selection:bg-blue-100 dark:selection:bg-blue-900 transition-colors duration-500">
+    <div className="min-h-screen selection:bg-blue-100 dark:selection:bg-blue-900 transition-colors duration-500">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#fdfcf0]/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md border-b border-gray-100/50 dark:border-gray-800/50">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -54,9 +55,12 @@ export function Welcome() {
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm font-bold hover:text-blue-600 transition-colors hover:translate-y-[-2px] inline-block duration-200">Features</a>
             <a href="#portals" className="text-sm font-bold hover:text-blue-600 transition-colors hover:translate-y-[-2px] inline-block duration-200">Portals</a>
-            <button className="bg-gray-900 dark:bg-white dark:text-gray-900 text-white px-6 py-2.5 rounded-full text-sm font-black hover:bg-blue-600 dark:hover:bg-blue-400 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 active:scale-95">
-              Contact Support
-            </button>
+            <div className="flex items-center gap-4">
+              <ThemeToggle />
+              <button className="bg-gray-900 dark:bg-white dark:text-gray-900 text-white px-6 py-2.5 rounded-full text-sm font-black hover:bg-blue-600 dark:hover:bg-blue-400 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 active:scale-95">
+                Contact Support
+              </button>
+            </div>
           </div>
         </div>
       </nav>
