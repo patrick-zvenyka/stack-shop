@@ -183,6 +183,7 @@ const systemViews = [
     color: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600",
     icon: <FinanceIcon />
   },
+  
   {
     to: "/pos/login",
     text: "POS",
